@@ -1,0 +1,124 @@
+﻿<Window x:Class="Diplom_work.DataGridView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diplom_work"
+        mc:Ignorable="d"
+        Title="Задачи отдела" Height="600" Width="802" FontSize="14" Background="#EEEEEE" ResizeMode="NoResize">
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Click="Btn_MainMenu_Click" Name="btn_MainMenu" Content="Главное меню" Width="110" Style="{StaticResource Hover Button}" Margin=" 5, 5, 10, 5"></Button>
+                <Border Background= "#EEEEEE" BorderBrush="#222831" BorderThickness="2" CornerRadius="20" Margin=" 510, 5, 10, 5" FlowDirection="RightToLeft" Width="148">
+                    <Label Name="txt_User" Content="" Background="{x:Null}" FontFamily="Times New Roman" HorizontalAlignment="Center"/>
+                </Border>
+            </StackPanel>
+            <Separator Background="#778da9" VerticalAlignment="Top" Width="794"/>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20, 5, 20, 0">
+                <TabControl Background="#EEEEEE" Name="TC_zad">
+                    <TabItem Header="Открытые задачи" Name="TI_Free">
+                        <StackPanel>
+                            <DataGrid Name="dataGrid1" AutoGenerateColumns="False" Height="375" VerticalAlignment="Top" CanUserAddRows="False" Background="#FFA8A8A8" HorizontalAlignment="Left" Width="700" RowDetailsVisibilityMode="Collapsed" MinColumnWidth="22">
+                                <DataGrid.Resources>
+                                    <Style TargetType="{x:Type TextBlock}" x:Key="WrapText">
+                                        <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding id}" Header="id" Width="50" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding id_Отдела}" Header="id Отдела" Width="75" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding Задача}" Header="Описание задачи" Width="350" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding Статус_задачи}" Header="Статус" Width="100" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding Сотрудник}" Header="Сотрудник" Width="115" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin=" 20, 20, 20, 10">
+                                <Button Name="btn_Accept" Content="Принять задачу" Click="Btn_Accept_Click" Height="40" Width="106" Margin="0, 0, 30, 0" Style="{StaticResource Hover Button}"/>
+                                <Button Name="btn_NewTxt" Content="Новая запись" Click="Btn_NewTxt_Click" Height="40" Width="106" Margin=" 0, 0, 30, 0" Style="{StaticResource Hover Button}"/>
+                                <Button Name="btn_Change" Content="Изменить" Click="Btn_Change_Click" Height="40" Width="106" Margin=" 0, 0, 30, 0" Style="{StaticResource Hover Button}"/>
+                                <Button Name="btn_Refresh" Content="Обновить" Click="Btn_Refresh_Click" Height="40" Width="106" Margin=" 0, 0, 30, 0" Style="{StaticResource Hover Button}"/>
+                                <Button Name="btn_Delete" Content="Удалить" Height="40" Width="105" Click="Btn_Delete_Click" Margin=" 0, 0, 0, 0" Style="{StaticResource Hover Button}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Занятые" Name="TI_Zan">
+                        <StackPanel>
+                            <DataGrid Name="dataGrid2" AutoGenerateColumns="False" Height="375" VerticalAlignment="Top" CanUserAddRows="False" Background="#FFA8A8A8" HorizontalAlignment="Left" Width="700" RowDetailsVisibilityMode="Collapsed" MinColumnWidth="22">
+                                <DataGrid.Resources>
+                                    <Style TargetType="{x:Type TextBlock}" x:Key="WrapText">
+                                        <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding id}" Header="id" Width="50" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding id_Отдела}" Header="id Отдела" Width="75" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding Задача}" Header="Описание задачи" Width="350" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding Статус_задачи}" Header="Статус" Width="100" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding Сотрудник}" Header="Сотрудник" Width="115" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin=" 20, 20, 20, 10">
+                                <Button Name="btn_Complete" Content="Завершить" Click="Btn_Complete_Click" Height="40" Width="105" Margin=" 0, 0, 55, 0" Style="{StaticResource Hover Button}"/>
+                                <Button Name="btn_Change2" Content="Изменить" Click="Btn_Change_Click" Height="40" Width="105" Margin=" 0, 0, 55, 0" Style="{StaticResource Hover Button}"/>
+                                <Button Name="btn_Refresh2" Content="Обновить" Click="Btn_Refresh_Click" Height="40" Width="105" Margin=" 0, 0, 55, 0" Style="{StaticResource Hover Button}"/>
+                                <Button Name="btn_Delete2" Content="Удалить" Height="40" Width="105" Click="Btn_Delete_Click" Margin=" 0, 0, 0, 0" Style="{StaticResource Hover Button}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Ожидающие" Name="TI_ozh">
+                        <StackPanel>
+                            <DataGrid Name="dataGrid3" AutoGenerateColumns="False" Height="375" VerticalAlignment="Top" CanUserAddRows="False" Background="#FFA8A8A8" HorizontalAlignment="Left" Width="700" RowDetailsVisibilityMode="Collapsed" MinColumnWidth="22">
+                                <DataGrid.Resources>
+                                    <Style TargetType="{x:Type TextBlock}" x:Key="WrapText">
+                                        <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding id}" Header="id" Width="50" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding id_Отдела}" Header="id Отдела" Width="75" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding Задача}" Header="Описание задачи" Width="300" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding Статус_задачи}" Header="Статус" Width="*" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding Сотрудник}" Header="Сотрудник" Width="*" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin=" 20, 20, 20, 10">
+                                <Button Name="btn_Confirm" Content="Подтвердить" Click="Btn_Confirm_Click_1" Height="40" Width="105" Margin=" 0, 0, 55, 0" Style="{StaticResource Hover Button}"/>
+                                <Button Name="btn_Change3" Content="Изменить" Click="Btn_Change_Click" Height="40" Width="105" Margin=" 0, 0, 55, 0" Style="{StaticResource Hover Button}"/>
+                                <Button Name="btn_Refresh3" Content="Обновить" Click="Btn_Refresh_Click" Height="40" Width="105" Margin=" 0, 0, 55, 0" Style="{StaticResource Hover Button}"/>
+                                <Button Name="btn_Delete3" Content="Удалить" Height="40" Width="105" Click="Btn_Delete_Click" Margin=" 0, 0, 0, 0" Style="{StaticResource Hover Button}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Подтвержденные" Name="TI_pod">
+                        <StackPanel>
+                            <DataGrid Name="dataGrid4" AutoGenerateColumns="False" Height="375" VerticalAlignment="Top" CanUserAddRows="False" Background="#FFA8A8A8" HorizontalAlignment="Left" Width="700" RowDetailsVisibilityMode="Collapsed" MinColumnWidth="22">
+                                <DataGrid.Resources>
+                                    <Style TargetType="{x:Type TextBlock}" x:Key="WrapText">
+                                        <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding id}" Header="id" Width="50" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding id_Отдела}" Header="id Отдела" Width="75" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding Задача}" Header="Описание задачи" Width="350" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding Статус_задачи}" Header="Статус" Width="100" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                    <DataGridTextColumn Binding="{Binding Сотрудник}" Header="Сотрудник" Width="115" CanUserReorder="False" IsReadOnly="True" ElementStyle="{StaticResource WrapText}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin=" 20, 20, 20, 10">
+                                <Button Name="btn_Change4" Content="Изменить" Click="Btn_Change_Click" Height="40" Width="105" Margin=" 0, 0, 55, 0" Style="{StaticResource Hover Button}"/>
+                                <Button Name="btn_Refresh4" Content="Обновить" Click="Btn_Refresh_Click" Height="40" Width="105" Margin=" 0, 0, 55, 0" Style="{StaticResource Hover Button}"/>
+                                <Button Name="btn_Delete4" Content="Удалить" Height="40" Width="105" Click="Btn_Delete_Click" Margin=" 0, 0, 0, 0" Style="{StaticResource Hover Button}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin=" 20, 0, 20, 20">
+                <Label Opacity="0.5">Для получения актуальной информации нажми кнопку "Обновить"</Label>
+                
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6f6ccf4cd3444009bf8b9f8ef5bcbce3" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="DiplomdbModel.Задачи_отделов" Width="1.75" PointX="7" PointY="4" />
+        <EntityTypeShape EntityType="DiplomdbModel.Отделы_предприятия" Width="1.875" PointX="4.25" PointY="2.625" />
+        <EntityTypeShape EntityType="DiplomdbModel.Сотрудники_отделов" Width="1.875" PointX="4.25" PointY="5.5" />
+        <EntityTypeShape EntityType="DiplomdbModel.Статус_готовности" Width="1.75" PointX="9.5" PointY="4.375" />
+        <AssociationConnector Association="DiplomdbModel.fk_id_zотдела" />
+        <AssociationConnector Association="DiplomdbModel.fk_id_сотрудника" />
+        <AssociationConnector Association="DiplomdbModel.fk_статус" />
+        <AssociationConnector Association="DiplomdbModel.fk_id_отдела" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

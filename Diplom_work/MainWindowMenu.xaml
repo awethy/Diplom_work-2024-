@@ -1,0 +1,37 @@
+﻿<Window x:Class="Diplom_work.MainWindowMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diplom_work"
+        mc:Ignorable="d"
+        Title="Меню" Height="600" Width="800" Background="#EEEEEE" ResizeMode="NoResize">
+
+
+    <Grid>
+        <StackPanel>
+            <StackPanel>
+                <Border Background= "#EEEEEE" BorderBrush="#222831" BorderThickness="2" CornerRadius="20" Margin="640,5,10,5">
+                    <Label Name="txt_User" Content="" HorizontalAlignment="Center" Background="{x:Null}" FontFamily="Times New Roman"/>
+                </Border>
+                <Separator Background="#778da9" VerticalAlignment="Top" Width="794"/>
+            </StackPanel>
+
+            <StackPanel Margin="20">
+                <Border Margin="40" Background= "#EEEEEE" BorderBrush="#222831" BorderThickness="2" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Top" Height="83" Width="423">
+                    <Label Content="Меню" HorizontalContentAlignment="Center" FontFamily="Times New Roman" FontSize="62"/>
+                </Border>
+                <StackPanel Margin="20, 20, 20, 20" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel Margin="20">
+                        <Button Style="{StaticResource Hover Button}" Width="250" Height="40" Margin="20" x:Name="btn_Zdch" Content="Задачи отделов" FontFamily="Times New Roman" FontSize="20" Click="Btn_Zdch_Click"></Button>
+                        <Button Style="{StaticResource Hover Button}" Width="250" Height="40" Margin="20" x:Name="btn_Close" Content="Выход" FontFamily="Times New Roman" FontSize="20" Click="Btn_Close_Click"></Button>
+                    </StackPanel>
+                    <StackPanel Margin="20">
+                        <Button Style="{StaticResource Hover Button}" Width="250" Height="40" Margin="20" x:Name="btn_Members" Content="Сотрудники отделов" FontFamily="Times New Roman" FontSize="20" Click="Btn_Members_Click"></Button>
+                        <Button Style="{StaticResource Hover Button}" Width="250" Height="40" Margin="20" x:Name="btn_Otdels" Content="Отделы" FontFamily="Times New Roman" FontSize="20"></Button>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

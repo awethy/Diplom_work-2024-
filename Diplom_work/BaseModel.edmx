@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище DiplomdbModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Задачи_отделов">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_отдела" Type="int" />
+          <Property Name="Задача" Type="varchar" MaxLength="255" />
+          <Property Name="Статус_задачи" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Сотрудник" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Отделы_предприятия">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название_отдела" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Адрес" Type="varchar" MaxLength="255" />
+          <Property Name="Контактные_данные" Type="varchar" MaxLength="255" />
+          <Property Name="Роль_отдела" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Сотрудники_отделов">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_отдела" Type="int" />
+          <Property Name="ФИО" Type="varchar" MaxLength="255" />
+          <Property Name="Должность" Type="varchar" MaxLength="255" />
+          <Property Name="Контактные_данные" Type="varchar" MaxLength="255" />
+          <Property Name="Зарплата" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Login" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Admin" Type="bit" Nullable="false" />
+          <Property Name="Ruk" Type="bit" Nullable="false" />
+          <Property Name="Sot" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Статус_готовности">
+          <Key>
+            <PropertyRef Name="Статус" />
+          </Key>
+          <Property Name="Статус" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_id_zотдела">
+          <End Role="Отделы_предприятия" Type="Self.Отделы_предприятия" Multiplicity="0..1" />
+          <End Role="Задачи_отделов" Type="Self.Задачи_отделов" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Отделы_предприятия">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Задачи_отделов">
+              <PropertyRef Name="id_отдела" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_отдела">
+          <End Role="Отделы_предприятия" Type="Self.Отделы_предприятия" Multiplicity="0..1" />
+          <End Role="Сотрудники_отделов" Type="Self.Сотрудники_отделов" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Отделы_предприятия">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Сотрудники_отделов">
+              <PropertyRef Name="id_отдела" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_сотрудника">
+          <End Role="Сотрудники_отделов" Type="Self.Сотрудники_отделов" Multiplicity="1" />
+          <End Role="Задачи_отделов" Type="Self.Задачи_отделов" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудники_отделов">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Задачи_отделов">
+              <PropertyRef Name="Сотрудник" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_статус">
+          <End Role="Статус_готовности" Type="Self.Статус_готовности" Multiplicity="1" />
+          <End Role="Задачи_отделов" Type="Self.Задачи_отделов" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Статус_готовности">
+              <PropertyRef Name="Статус" />
+            </Principal>
+            <Dependent Role="Задачи_отделов">
+              <PropertyRef Name="Статус_задачи" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Хранилище DiplomdbModelContainer">
+          <EntitySet Name="Задачи_отделов" EntityType="Self.Задачи_отделов" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Отделы_предприятия" EntityType="Self.Отделы_предприятия" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Сотрудники_отделов" EntityType="Self.Сотрудники_отделов" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Статус_готовности" EntityType="Self.Статус_готовности" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_id_zотдела" Association="Self.fk_id_zотдела">
+            <End Role="Отделы_предприятия" EntitySet="Отделы_предприятия" />
+            <End Role="Задачи_отделов" EntitySet="Задачи_отделов" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_отдела" Association="Self.fk_id_отдела">
+            <End Role="Отделы_предприятия" EntitySet="Отделы_предприятия" />
+            <End Role="Сотрудники_отделов" EntitySet="Сотрудники_отделов" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_сотрудника" Association="Self.fk_id_сотрудника">
+            <End Role="Сотрудники_отделов" EntitySet="Сотрудники_отделов" />
+            <End Role="Задачи_отделов" EntitySet="Задачи_отделов" />
+          </AssociationSet>
+          <AssociationSet Name="fk_статус" Association="Self.fk_статус">
+            <End Role="Статус_готовности" EntitySet="Статус_готовности" />
+            <End Role="Задачи_отделов" EntitySet="Задачи_отделов" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DiplomdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DiplomdbEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DiplomdbModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DiplomdbModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Задачи_отделов" EntityType="DiplomdbModel.Задачи_отделов" />
+          <EntitySet Name="Отделы_предприятия" EntityType="DiplomdbModel.Отделы_предприятия" />
+          <EntitySet Name="Сотрудники_отделов" EntityType="DiplomdbModel.Сотрудники_отделов" />
+          <EntitySet Name="Статус_готовности" EntityType="DiplomdbModel.Статус_готовности" />
+          <AssociationSet Name="fk_id_zотдела" Association="DiplomdbModel.fk_id_zотдела">
+            <End Role="Отделы_предприятия" EntitySet="Отделы_предприятия" />
+            <End Role="Задачи_отделов" EntitySet="Задачи_отделов" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_сотрудника" Association="DiplomdbModel.fk_id_сотрудника">
+            <End Role="Сотрудники_отделов" EntitySet="Сотрудники_отделов" />
+            <End Role="Задачи_отделов" EntitySet="Задачи_отделов" />
+          </AssociationSet>
+          <AssociationSet Name="fk_статус" Association="DiplomdbModel.fk_статус">
+            <End Role="Статус_готовности" EntitySet="Статус_готовности" />
+            <End Role="Задачи_отделов" EntitySet="Задачи_отделов" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_отдела" Association="DiplomdbModel.fk_id_отдела">
+            <End Role="Отделы_предприятия" EntitySet="Отделы_предприятия" />
+            <End Role="Сотрудники_отделов" EntitySet="Сотрудники_отделов" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Задачи_отделов">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_отдела" Type="Int32" />
+          <Property Name="Задача" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Статус_задачи" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Сотрудник" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Отделы_предприятия" Relationship="DiplomdbModel.fk_id_zотдела" FromRole="Задачи_отделов" ToRole="Отделы_предприятия" />
+          <NavigationProperty Name="Сотрудники_отделов" Relationship="DiplomdbModel.fk_id_сотрудника" FromRole="Задачи_отделов" ToRole="Сотрудники_отделов" />
+          <NavigationProperty Name="Статус_готовности" Relationship="DiplomdbModel.fk_статус" FromRole="Задачи_отделов" ToRole="Статус_готовности" />
+        </EntityType>
+        <EntityType Name="Отделы_предприятия">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название_отдела" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Адрес" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Контактные_данные" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Роль_отдела" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Задачи_отделов" Relationship="DiplomdbModel.fk_id_zотдела" FromRole="Отделы_предприятия" ToRole="Задачи_отделов" />
+          <NavigationProperty Name="Сотрудники_отделов" Relationship="DiplomdbModel.fk_id_отдела" FromRole="Отделы_предприятия" ToRole="Сотрудники_отделов" />
+        </EntityType>
+        <EntityType Name="Сотрудники_отделов">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_отдела" Type="Int32" />
+          <Property Name="ФИО" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Должность" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Контактные_данные" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Зарплата" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Admin" Type="Boolean" Nullable="false" />
+          <Property Name="Ruk" Type="Boolean" Nullable="false" />
+          <Property Name="Sot" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Задачи_отделов" Relationship="DiplomdbModel.fk_id_сотрудника" FromRole="Сотрудники_отделов" ToRole="Задачи_отделов" />
+          <NavigationProperty Name="Отделы_предприятия" Relationship="DiplomdbModel.fk_id_отдела" FromRole="Сотрудники_отделов" ToRole="Отделы_предприятия" />
+        </EntityType>
+        <EntityType Name="Статус_готовности">
+          <Key>
+            <PropertyRef Name="Статус" />
+          </Key>
+          <Property Name="Статус" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Задачи_отделов" Relationship="DiplomdbModel.fk_статус" FromRole="Статус_готовности" ToRole="Задачи_отделов" />
+        </EntityType>
+        <Association Name="fk_id_zотдела">
+          <End Type="DiplomdbModel.Отделы_предприятия" Role="Отделы_предприятия" Multiplicity="0..1" />
+          <End Type="DiplomdbModel.Задачи_отделов" Role="Задачи_отделов" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Отделы_предприятия">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Задачи_отделов">
+              <PropertyRef Name="id_отдела" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_сотрудника">
+          <End Type="DiplomdbModel.Сотрудники_отделов" Role="Сотрудники_отделов" Multiplicity="1" />
+          <End Type="DiplomdbModel.Задачи_отделов" Role="Задачи_отделов" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудники_отделов">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Задачи_отделов">
+              <PropertyRef Name="Сотрудник" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_статус">
+          <End Type="DiplomdbModel.Статус_готовности" Role="Статус_готовности" Multiplicity="1" />
+          <End Type="DiplomdbModel.Задачи_отделов" Role="Задачи_отделов" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Статус_готовности">
+              <PropertyRef Name="Статус" />
+            </Principal>
+            <Dependent Role="Задачи_отделов">
+              <PropertyRef Name="Статус_задачи" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_отдела">
+          <End Type="DiplomdbModel.Отделы_предприятия" Role="Отделы_предприятия" Multiplicity="0..1" />
+          <End Type="DiplomdbModel.Сотрудники_отделов" Role="Сотрудники_отделов" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Отделы_предприятия">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Сотрудники_отделов">
+              <PropertyRef Name="id_отдела" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DiplomdbModelContainer" CdmEntityContainer="DiplomdbEntities">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище DiplomdbModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище DiplomdbModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище DiplomdbModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище DiplomdbModel.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DiplomdbModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище DiplomdbModel.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DiplomdbModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище DiplomdbModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище DiplomdbModel.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Задачи_отделов">
+            <EntityTypeMapping TypeName="DiplomdbModel.Задачи_отделов">
+              <MappingFragment StoreEntitySet="Задачи_отделов">
+                <ScalarProperty Name="Сотрудник" ColumnName="Сотрудник" />
+                <ScalarProperty Name="Статус_задачи" ColumnName="Статус_задачи" />
+                <ScalarProperty Name="Задача" ColumnName="Задача" />
+                <ScalarProperty Name="id_отдела" ColumnName="id_отдела" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Отделы_предприятия">
+            <EntityTypeMapping TypeName="DiplomdbModel.Отделы_предприятия">
+              <MappingFragment StoreEntitySet="Отделы_предприятия">
+                <ScalarProperty Name="Роль_отдела" ColumnName="Роль_отдела" />
+                <ScalarProperty Name="Контактные_данные" ColumnName="Контактные_данные" />
+                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
+                <ScalarProperty Name="Название_отдела" ColumnName="Название_отдела" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Сотрудники_отделов">
+            <EntityTypeMapping TypeName="DiplomdbModel.Сотрудники_отделов">
+              <MappingFragment StoreEntitySet="Сотрудники_отделов">
+                <ScalarProperty Name="Sot" ColumnName="Sot" />
+                <ScalarProperty Name="Ruk" ColumnName="Ruk" />
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Зарплата" ColumnName="Зарплата" />
+                <ScalarProperty Name="Контактные_данные" ColumnName="Контактные_данные" />
+                <ScalarProperty Name="Должность" ColumnName="Должность" />
+                <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+                <ScalarProperty Name="id_отдела" ColumnName="id_отдела" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Статус_готовности">
+            <EntityTypeMapping TypeName="DiplomdbModel.Статус_готовности">
+              <MappingFragment StoreEntitySet="Статус_готовности">
+                <ScalarProperty Name="Статус" ColumnName="Статус" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

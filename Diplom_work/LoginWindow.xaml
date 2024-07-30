@@ -1,0 +1,43 @@
+﻿<Window x:Class="Diplom_work.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diplom_work"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="319" Width="300" FontSize="14" Background="#EEEEEE" ResizeMode="NoResize">
+    <Border Background= "#EEEEEE" BorderBrush="#222831" Margin="20" BorderThickness="2" CornerRadius="10">
+        <StackPanel Margin="20.2,20.2,20,4.8" Background="Transparent" >
+            <Label Content="Вход" FontSize="25" HorizontalAlignment="Center"/>
+            <Separator></Separator>
+            <Label Content="Логин"/>
+            <TextBox Name="txtLogin" FontSize="18" Background="#EEEEEE" BorderThickness="2" BorderBrush="#222831"/>
+            <Label Content="Пароль"/>
+            <PasswordBox Name="txtPassword" FontSize="18" Background="#EEEEEE" BorderThickness="2" BorderBrush="#222831"/>
+            <Button x:Name="btnSubmit" Click="BtnSubmit_Click" Content="Войти" Margin="60,15,60.2,15" Height="27">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="BorderThickness" Value="1"></Setter>
+                        <Setter Property="BorderBrush" Value="#222831"></Setter>
+                        <Setter Property="Background" Value="#EEEEEE"></Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#222831"></Setter>
+                                <Setter Property="Foreground" Value="#EEEEEE"></Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+    </Border>
+</Window>
